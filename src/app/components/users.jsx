@@ -21,6 +21,7 @@ const Users = ({ users: allUsers, ...rest }) => {
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedProf])
+
   const handleProfessionSelect = (item) => {
     setSelectedProf(item)
   }
@@ -30,8 +31,12 @@ const Users = ({ users: allUsers, ...rest }) => {
   }
 
   const filteredUsers = selectedProf
-    ? allUsers.filter((user) => user.profession === selectedProf)
+    ? allUsers.filter(
+        (user) =>
+          JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+      )
     : allUsers
+
   const count = filteredUsers.length
   const usersCrop = paginate(filteredUsers, currentPage, pageSize)
   const clearFilter = () => {
